@@ -1,0 +1,13 @@
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+main div {
+  padding: 2rem;
+}
+
+main h1 {
+  margin-bottom: 2rem;
+}
