@@ -9,7 +9,12 @@ import { scrapeOlx } from './olx-scraper.js';
 
 const app = express();
 const port = 3000;
-app.use(cors());
+app.use(
+  cors({
+    origin: ['https://scraper-client-delta.vercel.app'],
+    methods: ['POST'],
+  })
+);
 app.use(bodyParser.json());
 
 app.post('/scrape', async (req, res) => {
@@ -18,22 +23,6 @@ app.post('/scrape', async (req, res) => {
 
     const emagData = await scrapeEmag(search);
     const olxData = await scrapeOlx(search);
-
-    // if (emagData) {
-    //   fs.writeFileSync(
-    //     '../data/emag-data.json',
-    //     JSON.stringify(emagData, null, 2),
-    //     'utf-8'
-    //   );
-    // }
-
-    // if (olxData) {
-    //   fs.writeFileSync(
-    //     '../data/olx-data.json',
-    //     JSON.stringify(olxData, null, 2),
-    //     'utf-8'
-    //   );
-    // }
 
     res.status(200).json({ emagData, olxData });
   } catch (error) {
