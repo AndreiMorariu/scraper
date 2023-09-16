@@ -18,7 +18,7 @@ function Header({
     try {
       setLoading(true);
       setVisible(false);
-      const response = await fetch('https://scraper-api-g72m.onrender.com/', {
+      const response = await fetch('http://localhost:3000/scrape', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,15 @@
 {
+  "name": "server",
+  "version": "1.0.0",
+  "main": "src/main.js",
+  "devDependencies": {},
+  "scripts": {
+    "vercel-build": "echo hello"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
