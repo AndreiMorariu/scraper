@@ -18,17 +18,14 @@ function Header({
     try {
       setLoading(true);
       setVisible(false);
-      const response = await fetch(
-        'https://tasty-hen-cuff.cyclic.cloud/scrape',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*',
-          },
-          body: JSON.stringify({ search }),
-        }
-      );
+      const response = await fetch('https://localhost:3000/scrape', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ search }),
+      });
       setSearch('');
       const { emagData, olxData } = await response.json();
       setDataOlx(olxData);
