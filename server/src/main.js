@@ -74,6 +74,10 @@ app.get('/scrape-olx-results', (req, res) => {
   }
 });
 
+app.get('/', (req, res) => {
+  res.send('Server running');
+});
+
 app.listen(port, () => {
   console.log(`Running on port: ${port}`);
 });
