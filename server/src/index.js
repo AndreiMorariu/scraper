@@ -9,13 +9,7 @@ import { scrapeOlx } from './olx-scraper.js';
 
 const app = express();
 const port = 3000;
-// app.use(
-//   cors({
-//     origin: ['https://scraper-client-delta.vercel.app/'],
-//     methods: ['POST'],
-//   })
-// );
-app.options('*', cors());
+app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/scrape', async (req, res) => {
