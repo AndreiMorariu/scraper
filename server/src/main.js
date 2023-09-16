@@ -22,7 +22,6 @@ app.post('/scrape', async (req, res) => {
     res.status(200).json({ emagData, olxData });
   } catch (error) {
     console.error(error);
-    console.log('Inside error main');
     res.status(500).json(error);
   }
 });
