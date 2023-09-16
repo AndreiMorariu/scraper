@@ -1,0 +1,11 @@
+.main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+}
+
+@media screen and (max-width: 1200px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+}

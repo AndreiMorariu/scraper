@@ -1,4 +1,6 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+puppeteer.use(StealthPlugin());
 
 export async function scrapeOlx(searchTerm) {
   try {
@@ -29,13 +31,15 @@ export async function scrapeOlx(searchTerm) {
 
     let result = [];
     const titles = await page.$$('.css-16v5mdi');
-    const prices = await page.$$('.css-10b0gli');
+    const prices = await page.$$('[data-testid="ad-price"]');
     const images = await page.$$('.css-gl6djm img');
+    const links = await page.$$('.css-rc5s2u');
 
     for (let i = 0; i < titles.length; i++) {
       const titleElement = titles[i];
       const priceElement = prices[i];
       const imageElement = images[i];
+      const linkElement = links[i];
 
       const title = await page.evaluate(
         (titleElement) => titleElement.textContent,
@@ -52,7 +56,12 @@ export async function scrapeOlx(searchTerm) {
         imageElement
       );
 
-      result.push({ name: title, image: image, price: price });
+      const link = await page.evaluate(
+        (linkElement) => linkElement.href,
+        linkElement
+      );
+
+      result.push({ name: title, image: image, price: price, link });
     }
 
     await browser.close();

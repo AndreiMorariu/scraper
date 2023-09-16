@@ -19,25 +19,26 @@ app.post('/scrape', async (req, res) => {
     const emagData = await scrapeEmag(search);
     const olxData = await scrapeOlx(search);
 
-    if (emagData) {
-      fs.writeFileSync(
-        '../data/emag-data.json',
-        JSON.stringify(emagData, null, 2),
-        'utf-8'
-      );
-    }
+    // if (emagData) {
+    //   fs.writeFileSync(
+    //     '../data/emag-data.json',
+    //     JSON.stringify(emagData, null, 2),
+    //     'utf-8'
+    //   );
+    // }
 
-    if (olxData) {
-      fs.writeFileSync(
-        '../data/olx-data.json',
-        JSON.stringify(olxData, null, 2),
-        'utf-8'
-      );
-    }
+    // if (olxData) {
+    //   fs.writeFileSync(
+    //     '../data/olx-data.json',
+    //     JSON.stringify(olxData, null, 2),
+    //     'utf-8'
+    //   );
+    // }
 
     res.status(200).json({ emagData, olxData });
   } catch (error) {
     console.error(error);
+    console.log('Inside error main');
     res.status(500).json(error);
   }
 });

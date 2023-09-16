@@ -1,0 +1,92 @@
+.header {
+  margin-bottom: 3rem;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 2px;
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+}
+
+.headerForm {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.headerInput {
+  border: none;
+  width: 50%;
+  border-radius: 0.7rem;
+  padding: 0.5rem;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+.headerInput:focus {
+  outline: none;
+}
+
+.headerBtn {
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1.6rem;
+  background: linear-gradient(25deg, #d64c7f, #ee4758 50%);
+  color: #fff;
+}
+
+.headerBtn:hover {
+  background: linear-gradient(25deg, #d64c7fdf, #ee4758cf 50%);
+}
+
+.svg {
+  height: 8rem;
+  width: 8rem;
+}
+
+.selectBtn {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  width: 20em;
+  height: 3em;
+  padding: 0 4em 0 1em;
+  color: white;
+  border-radius: 0.25em;
+  box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  background: url(https://upload.wikimedia.org/wikipedia/commons/9/9d/Caret_down_font_awesome_whitevariation.svg)
+      no-repeat right 0.8em center / 1.4em,
+    linear-gradient(
+      to left,
+      rgba(255, 255, 255, 0.3) 3em,
+      rgba(255, 255, 255, 0.2) 3em
+    );
+  display: block;
+  margin: 4rem auto;
+}
+
+.selectBtn option {
+  color: inherit;
+  background-color: #6a82fb;
+}
+
+.selectBtn:focus {
+  outline: none;
+}
+
+.selectBtn::-ms-expand {
+  display: none;
+}
+
+@media screen and (min-width: 1200px) {
+  .selectBtn {
+    display: none;
+  }
+}

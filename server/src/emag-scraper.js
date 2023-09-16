@@ -1,4 +1,6 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+puppeteer.use(StealthPlugin());
 
 export async function scrapeEmag(searchTerm) {
   try {
@@ -23,11 +25,13 @@ export async function scrapeEmag(searchTerm) {
     const titles = await page.$$('.card-v2-title');
     const prices = await page.$$('.product-new-price');
     const images = await page.$$('.card-v2-thumb-inner img');
+    const links = await page.$$('.js-product-url');
 
     for (let i = 0; i < titles.length; i++) {
       const titleElement = titles[i];
       const priceElement = prices[i];
       const imageElement = images[i];
+      const linkElement = links[i];
 
       const title = await page.evaluate(
         (titleElement) => titleElement.textContent,
@@ -44,7 +48,12 @@ export async function scrapeEmag(searchTerm) {
         imageElement
       );
 
-      result.push({ name: title, price, image });
+      const link = await page.evaluate(
+        (linkElement) => linkElement.href,
+        linkElement
+      );
+
+      result.push({ name: title, price, image, link });
     }
 
     await browser.close();

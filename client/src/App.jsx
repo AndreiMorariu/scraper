@@ -1,79 +1,73 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+
+import { ColorRing } from 'react-loader-spinner';
+import Header from './components/Header/Header';
+import Main from './components/Main/Main';
+import ItemsList from './components/ItemsList/ItemsList';
 
 function App() {
-  const [search, setSearch] = useState('');
   const [dataEmag, setDataEmag] = useState([]);
   const [dataOlx, setDataOlx] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selected, setSelected] = useState('all data');
 
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      fetch('http://localhost:3000/scrape', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-        },
-        body: JSON.stringify({ search }),
-      })
-        .then((response) => response.json())
-        .then(({ emagData, olxData }) => {
-          console.log(emagData, olxData);
-          setDataOlx(olxData);
-          setDataEmag(emagData);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setSearch('');
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1200) setSelected('all data');
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [setSelected]);
 
   return (
-    <div>
-      {loading && <h1>LOADING...</h1>}
-      <form action='' onSubmit={handleFormSubmit}>
-        <input
-          type='text'
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </form>
-      <main>
-        <div>
-          <h1>EMAG</h1>
-          <ul>
-            {dataEmag?.map((e, i) => {
-              return (
-                <li key={i}>
-                  {e.name} <h2>{e.price}</h2>
-                  <img src={e.image} alt={e.name} />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-        <div>
-          <h1>OLX</h1>
-          <ul>
-            {dataOlx?.map((e, i) => {
-              return (
-                <li key={i}>
-                  {e.name} <h2>{e.price}</h2>
-                  <img src={e.image} alt={e.name} />
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </main>
-    </div>
+    <>
+      {isMobile ? (
+        <h1 style={{ textAlign: 'center', marginTop: '3rem' }}>
+          Mobile version not finished
+        </h1>
+      ) : (
+        <>
+          <Header
+            setDataEmag={setDataEmag}
+            setDataOlx={setDataOlx}
+            setLoading={setLoading}
+            selected={selected}
+            setSelected={setSelected}
+          />
+          {loading ? (
+            <ColorRing
+              colors={['#fff', '#fff', '#fff', '#fff', '#fff']}
+              height='12rem'
+              width='12rem'
+              wrapperStyle={{
+                position: 'absolute',
+                top: '50%',
+                right: '50%',
+                transform: 'translate(50%, 100%)',
+              }}
+            />
+          ) : (
+            <Main>
+              {selected === 'all data' && (
+                <>
+                  <ItemsList data={dataEmag} title='Emag' />
+                  <ItemsList data={dataOlx} title='Olx' />
+                </>
+              )}
+              {selected === 'emag' && (
+                <ItemsList data={dataEmag} title='Emag' />
+              )}
+              {selected === 'olx' && <ItemsList data={dataOlx} title='Olx' />}
+            </Main>
+          )}
+        </>
+      )}
+    </>
   );
 }
 
