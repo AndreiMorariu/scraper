@@ -4,7 +4,8 @@
   "main": "main.js",
   "devDependencies": {},
   "scripts": {
-    "vercel-build": "echo hello"
+    "build": "tsc",
+    "start": "node src/main.js"
   },
   "keywords": [],
   "author": "",
