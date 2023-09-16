@@ -18,7 +18,7 @@ function Header({
     try {
       setLoading(true);
       setVisible(false);
-      const response = await fetch('https://scraper-api-eosin.vercel.app/', {
+      const response = await fetch('https://scraper-server-six.vercel.app/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
