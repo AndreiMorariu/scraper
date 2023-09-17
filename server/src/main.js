@@ -19,10 +19,10 @@ app.post('/scrape', async (req, res) => {
     const emagData = await scrapeEmag(search);
     const olxData = await scrapeOlx(search);
 
-    res.status(200).json({ emagData, olxData });
+    res.status(200).send({ emagData, olxData });
   } catch (error) {
     console.error(error);
-    res.status(500).json(error);
+    res.status(500).send(error);
   }
 });
 
